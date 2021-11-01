@@ -17,15 +17,16 @@ def drawData(data, colorArray,canvas):
     x_width = c_width /(len(data) + 1)
 
     spacing = x_width/2
-    offset = spacing
+    offset = spacing/2
+    ypad=6
     normalizedData = [ i / max(data) for i in data]
     for i, height in enumerate(normalizedData):
         #top left
         x0 = i * x_width + offset + spacing
-        y0 = c_height - height * (c_height/(max(normalizedData)+0.07))
+        y0 = c_height - ypad - height * (c_height/(max(normalizedData)+0.1))
         #bottom right
         x1 = (i + 1) * x_width + offset
-        y1 = c_height
+        y1 = c_height -ypad
 
         canvas.create_rectangle(x0, y0, x1, y1, fill=colorArray[i])
         canvas.create_text(x0+2, y0, anchor=SW, text=str(data[i]))
@@ -85,7 +86,7 @@ UI_frame.grid_columnconfigure(2,weight=1)
 
 
 merge_canv = Canvas(root,bg='light pink')
-merge_canv.grid(row=1, column=0, padx=10, pady=5,ipady=5,sticky="nsew")
+merge_canv.grid(row=1, column=0, padx=10, pady=5,ipady=10,sticky="nsew")
 quick_canv = Canvas(root, bg='light pink')
 quick_canv.grid(row=1, column=1, padx=10, pady=5,ipady=5,sticky="nsew"  )
 

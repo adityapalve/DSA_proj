@@ -1,14 +1,16 @@
 from tkinter import *
 from tkinter import ttk
 import random
-# from quicksort import quick_sort
+from quicksort import quick_sort
 from mergesort import merge_sort
-
+import threading
 #variables
 #selected_alg = StringVar()
 dataM = []
 dataQ = []
 #function
+# def drawData(data, colorArray,canvas):
+#     threading.Thread(target=drawDatax,args=(data, colorArray,canvas,)).start()
 def drawData(data, colorArray,canvas):
     canvas.delete("all")
     c_height = canvas.winfo_height()
@@ -58,7 +60,8 @@ def StartAlgorithm():
     global dataM
     global dataQ
     if (not dataM or not dataQ): return
-    #quick_sort(data, 0, len(data)-1, drawData, speedScale.get())
+    quick_sort(dataQ, 0, len(dataQ)-1, drawData, speedScale.get(),quick_canv)
+    drawData(dataQ, ['green' for x in range(len(dataQ))],quick_canv)
 
     merge_sort(dataM, drawData, speedScale.get(),merge_canv)
     drawData(dataM, ['green' for x in range(len(dataM))],merge_canv)

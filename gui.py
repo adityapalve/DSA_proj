@@ -4,11 +4,6 @@ import random
 # from quicksort import quick_sort
 # from mergesort import merge_sort
 
-root = Tk()
-root.title('mergesort')
-# root.maxsize(900, 600)
-root.config(bg='light blue')
-
 #variables
 #selected_alg = StringVar()
 data = []
@@ -59,18 +54,31 @@ def StartAlgorithm():
     drawData(data, ['green' for x in range(len(data))])
 
 
-
-root.grid_columnconfigure(0, weight=1)
-root.grid_columnconfigure(1, weight=3)
+root = Tk()
+root.title('mergesort')
+# root.maxsize(900, 600)
+root.config(bg='light blue')
+root.resizable("True","True")
+root.grid_rowconfigure(0, weight=1)
+root.grid_rowconfigure(1, weight=3)
+root.grid_columnconfigure(0,weight=1)
+root.grid_columnconfigure(1, weight=1)
 
 #frame / base lauout
 
-UI_frame = Frame(root, width= 600, height=200, bg='grey')
+UI_frame = Frame(root, bg='grey')
 UI_frame.grid(row=0, column=0, padx=10, pady=5,columnspan=2, sticky="nsew" )
+UI_frame.grid_rowconfigure(0, weight=1)
+UI_frame.grid_rowconfigure(1, weight=1)
+UI_frame.grid_columnconfigure(0,weight=1)
+UI_frame.grid_columnconfigure(1,weight=1)
+UI_frame.grid_columnconfigure(2,weight=1)
+
+
 merge_canv = Canvas(root, bg='light pink')
-merge_canv.grid(row=1, column=0, padx=10, pady=5)
+merge_canv.grid(row=1, column=0, padx=10, pady=5,sticky="nsew")
 quick_canv = Canvas(root, bg='light pink')
-quick_canv.grid(row=1, column=0, padx=10, pady=5)
+quick_canv.grid(row=1, column=1, padx=10, pady=5,sticky="nsew"  )
 
 #User Interface Area
 #Row[0]

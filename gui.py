@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import ttk
 import random
 # from quicksort import quick_sort
-# from mergesort import merge_sort
+from mergesort import merge_sort
 
 #variables
 #selected_alg = StringVar()
@@ -57,12 +57,11 @@ def Generate():
 def StartAlgorithm():
     global dataM
     global dataQ
-    if not data: return
-    quick_sort(data, 0, len(data)-1, drawData, speedScale.get())
+    if (not dataM or not dataQ): return
+    #quick_sort(data, 0, len(data)-1, drawData, speedScale.get())
 
-    merge_sort(data, drawData, speedScale.get())
-
-    drawData(data, ['green' for x in range(len(data))])
+    merge_sort(dataM, drawData, speedScale.get(),merge_canv)
+    drawData(dataM, ['green' for x in range(len(dataM))],merge_canv)
 
 
 root = Tk()

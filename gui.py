@@ -1,5 +1,6 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import messagebox
 import random
 from quicksort import quick_sort
 from mergesort import merge_sort
@@ -39,18 +40,38 @@ def drawData(data, colorArray,canvas):
 def Generate():
     global dataM
     global dataQ
-
-
-    minVal = int(minEntry.get())
-    maxVal = int(maxEntry.get())
-    size = int(sizeEntry.get())
-
     dataM = []
     dataQ=[]
-    for _ in range(size):
-        val=random.randrange(minVal, maxVal+1)
-        dataM.append(val)
-        dataQ.append(val)
+    custInput=userIn.get("1.0",END)
+    if len(custInput) !=1:
+        resp=messagebox.askquestion("Generate","This is your input {0}. Are you Sure?".format(custInput))
+        if resp=="yes":
+            data=[int(x) for x in custInput.split(",")]
+            for i in data:
+                dataM.append(i)
+                dataQ.append(i)
+        if resp=="no":
+            resp2=messagebox.askquestion("Generate","Would you like to auto generate a random number?")
+            if resp2=="yes":
+                minVal = int(minEntry.get())
+                maxVal = int(maxEntry.get())
+                size = int(sizeEntry.get())
+
+                for _ in range(size):
+                    val=random.randrange(minVal, maxVal+1)
+                    dataM.append(val)
+                    dataQ.append(val)
+            if resp2=="no":
+                return
+    if len(custInput)==1:
+        minVal = int(minEntry.get())
+        maxVal = int(maxEntry.get())
+        size = int(sizeEntry.get())
+
+        for _ in range(size):
+            val=random.randrange(minVal, maxVal+1)
+            dataM.append(val)
+            dataQ.append(val)
 
     drawData(dataM, ['red' for x in range(len(dataM))],merge_canv) #['red', 'red' ,....]
     drawData(dataQ, ['red' for x in range(len(dataQ))],quick_canv) #['red', 'red' ,....]
@@ -104,7 +125,7 @@ speedScale.grid(row=0, column=2, padx=5, pady=5,sticky="nsew")
 Button(UI_frame, text="Start", command=StartAlgorithm, bg='red').grid(row=0, column=3, padx=5, pady=5)
 
 #Row[1]
-sizeEntry = Scale(UI_frame, from_=3, to=25, resolution=1, orient=HORIZONTAL, label="Data Size")
+sizeEntry = Scale(UI_frame, from_=3, to=40, resolution=1, orient=HORIZONTAL, label="Data Size")
 sizeEntry.grid(row=1, column=0, padx=5, pady=5,sticky="nsew")
 
 minEntry = Scale(UI_frame, from_=0, to=10, resolution=1, orient=HORIZONTAL, label="Min Value")
@@ -113,6 +134,9 @@ minEntry.grid(row=1, column=1, padx=5, pady=5,sticky="nsew")
 maxEntry = Scale(UI_frame, from_=10, to=100, resolution=1, orient=HORIZONTAL, label="Max Value")
 maxEntry.grid(row=1, column=2, padx=5, pady=5,sticky="nsew")
 
+userIn = Text(UI_frame,bg='white',width=10,height=0.1)
+userIn.insert('1.0', 'Insert data in single line')
+userIn.grid(row=0, column=0 ,columnspan=2,padx=5, pady=5,sticky="nsew")
 Button(UI_frame, text="Generate", command=Generate, bg='white').grid(row=1, column=3, padx=5, pady=5)
 
 root.mainloop()

@@ -83,10 +83,9 @@ def StartAlgorithm():
     if (not dataM or not dataQ): return
     quick_sort(dataQ, 0, len(dataQ)-1, drawData, speedScale.get(),quick_canv)
     drawData(dataQ, ['green' for x in range(len(dataQ))],quick_canv)
-
-    merge_sort(dataM, drawData, speedScale.get(),merge_canv)
+    comps=merge_sort(dataM, drawData, speedScale.get(),merge_canv)
     drawData(dataM, ['green' for x in range(len(dataM))],merge_canv)
-
+    messagebox.showinfo(title="runtime and No of comparisons",message="no of comp is {0}".format(comps))
 
 root = Tk()
 root.title('mergesort')
